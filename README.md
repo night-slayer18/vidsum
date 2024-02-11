@@ -49,3 +49,4 @@ For future development to this approach, see [Wiki](https://github.com/OpenGenus
 
 All contributions are welcomed. Please see [COMMIT_TEMPLATE.md](https://github.com/OpenGenus/vidsum/blob/master/.github/COMMIT_TEMPLATE.md) before making pull requests to this repository. See all contributors [here](https://github.com/OpenGenus/vidsum/graphs/contributors).
 "# vidsum" 
+"# vidsum" 
