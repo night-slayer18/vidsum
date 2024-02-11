@@ -11,7 +11,7 @@ import imageio
 import youtube_dl
 import chardet
 import nltk
-imageio.plugins.ffmpeg.download()
+# imageio.plugins.ffmpeg.download()
 nltk.download('punkt')
 
 from moviepy.editor import VideoFileClip, concatenate_videoclips
@@ -22,7 +22,7 @@ from sumy.utils import get_stop_words
 from sumy.summarizers.lsa import LsaSummarizer
 
 
-imageio.plugins.ffmpeg.download()
+# imageio.plugins.ffmpeg.download()
 
 
 def summarize(srt_file, n_sentences, language="english"):
@@ -171,7 +171,7 @@ def get_summary(filename="1.mp4", subtitles="1.srt"):
         True
 
     """
-    regions = find_summary_regions(subtitles, 60, "english")
+    regions = find_summary_regions(subtitles, 200, "english")
     summary = create_summary(filename, regions)
     base, ext = os.path.splitext(filename)
     output = "{0}_1.mp4".format(base)

@@ -1,0 +1,1731 @@
+1
+00:00:00,480 --> 00:00:04,200
+what is going on guys welcome back to
+
+2
+00:00:02,760 --> 00:00:06,899
+another Android application development
+
+3
+00:00:04,200 --> 00:00:09,420
+video in Android Studio in this video we
+
+4
+00:00:06,899 --> 00:00:11,219
+are going to create a chat GPT generate
+
+5
+00:00:09,420 --> 00:00:13,259
+image application so from this
+
+6
+00:00:11,219 --> 00:00:15,839
+application we will generate any image
+
+7
+00:00:13,259 --> 00:00:18,600
+with the help of open AI by sending just
+
+8
+00:00:15,839 --> 00:00:22,439
+a text so I will show you the example so
+
+9
+00:00:18,600 --> 00:00:25,640
+let's say tiger with iPhone
+
+10
+00:00:22,439 --> 00:00:25,640
+click on generate
+
+11
+00:00:25,800 --> 00:00:30,480
+so as you can see tiger is in with
+
+12
+00:00:27,599 --> 00:00:31,740
+iPhone you can generate any of the image
+
+13
+00:00:30,480 --> 00:00:34,860
+like
+
+14
+00:00:31,740 --> 00:00:38,000
+moon with eyes
+
+15
+00:00:34,860 --> 00:00:38,000
+and ear
+
+16
+00:00:38,640 --> 00:00:42,059
+so as you can see it can generate
+
+17
+00:00:40,140 --> 00:00:44,780
+anything so let's build this application
+
+18
+00:00:42,059 --> 00:00:44,780
+from start
+
+19
+00:00:45,079 --> 00:00:49,620
+let's get started with new project click
+
+20
+00:00:48,059 --> 00:00:52,020
+on new project
+
+21
+00:00:49,620 --> 00:00:54,480
+empty activity
+
+22
+00:00:52,020 --> 00:00:59,219
+and give the name
+
+23
+00:00:54,480 --> 00:00:59,219
+easy image generator
+
+24
+00:01:01,500 --> 00:01:08,060
+select language as Java minimum SDK as
+
+25
+00:01:04,080 --> 00:01:08,060
+API 23 click on finish
+
+26
+00:01:08,760 --> 00:01:13,260
+our project is loaded first we will go
+
+27
+00:01:11,220 --> 00:01:16,380
+to manifest and add the internet usage
+
+28
+00:01:13,260 --> 00:01:17,640
+permission so go to manifest and usage
+
+29
+00:01:16,380 --> 00:01:19,200
+permission
+
+30
+00:01:17,640 --> 00:01:21,680
+internet
+
+31
+00:01:19,200 --> 00:01:24,659
+close the Manifest go to Activity
+
+32
+00:01:21,680 --> 00:01:26,700
+main.xml Click on split
+
+33
+00:01:24,659 --> 00:01:28,979
+say hello to this hello world and delete
+
+34
+00:01:26,700 --> 00:01:31,380
+it make this constant layout as a
+
+35
+00:01:28,979 --> 00:01:33,420
+relative layout
+
+36
+00:01:31,380 --> 00:01:35,640
+first we will Design the screen and we
+
+37
+00:01:33,420 --> 00:01:37,259
+will add the implementation we will make
+
+38
+00:01:35,640 --> 00:01:40,200
+the simple design we don't want to make
+
+39
+00:01:37,259 --> 00:01:42,900
+a complex UI so let's get started
+
+40
+00:01:40,200 --> 00:01:45,420
+let's create a text view first
+
+41
+00:01:42,900 --> 00:01:47,640
+wrap content wrap content
+
+42
+00:01:45,420 --> 00:01:49,259
+text will be
+
+43
+00:01:47,640 --> 00:01:51,360
+generate
+
+44
+00:01:49,259 --> 00:01:54,780
+image now
+
+45
+00:01:51,360 --> 00:01:57,720
+text size will be 30 SP and I will
+
+46
+00:01:54,780 --> 00:02:01,619
+Center it in horizontal true ID I will
+
+47
+00:01:57,720 --> 00:02:03,360
+give Edge text view for now below this
+
+48
+00:02:01,619 --> 00:02:05,340
+will make a linear layout where we will
+
+49
+00:02:03,360 --> 00:02:08,340
+add one edit text one button one
+
+50
+00:02:05,340 --> 00:02:10,979
+progress bar and one image view so let's
+
+51
+00:02:08,340 --> 00:02:12,959
+add linear layout
+
+52
+00:02:10,979 --> 00:02:15,780
+virtually match parent height will be
+
+53
+00:02:12,959 --> 00:02:18,060
+wrap content and inside that I will give
+
+54
+00:02:15,780 --> 00:02:20,340
+orientation as vertical so that we will
+
+55
+00:02:18,060 --> 00:02:22,920
+add vertically let's create a edit text
+
+56
+00:02:20,340 --> 00:02:24,959
+first edit text with fully match parent
+
+57
+00:02:22,920 --> 00:02:27,959
+height will be wrap content I will give
+
+58
+00:02:24,959 --> 00:02:30,540
+the hint right here
+
+59
+00:02:27,959 --> 00:02:34,080
+so you can see over here I will Center
+
+60
+00:02:30,540 --> 00:02:35,580
+this linear layout so Center vertical
+
+61
+00:02:34,080 --> 00:02:38,280
+will be true
+
+62
+00:02:35,580 --> 00:02:40,319
+and gravity also Center so this is our
+
+63
+00:02:38,280 --> 00:02:44,700
+edit text we'll give the padding about
+
+64
+00:02:40,319 --> 00:02:48,120
+12 DP and we'll give the margin vertical
+
+65
+00:02:44,700 --> 00:02:51,720
+20 DB below this let's create a button
+
+66
+00:02:48,120 --> 00:02:55,260
+so I will use material button with fully
+
+67
+00:02:51,720 --> 00:02:57,360
+match parent height will be about 60 DP
+
+68
+00:02:55,260 --> 00:03:01,319
+here is the button
+
+69
+00:02:57,360 --> 00:03:05,220
+text will be generate padding will be 12
+
+70
+00:03:01,319 --> 00:03:07,200
+ldp ID we will give as
+
+71
+00:03:05,220 --> 00:03:10,860
+generate
+
+72
+00:03:07,200 --> 00:03:12,599
+BTN now I need one progress bar so that
+
+73
+00:03:10,860 --> 00:03:14,700
+we can show the progress and one image
+
+74
+00:03:12,599 --> 00:03:16,379
+view to show the image so let's add
+
+75
+00:03:14,700 --> 00:03:18,360
+progress bar
+
+76
+00:03:16,379 --> 00:03:22,200
+width will be match parent height will
+
+77
+00:03:18,360 --> 00:03:23,760
+be 60 DB ID will be progress
+
+78
+00:03:22,200 --> 00:03:27,480
+circular
+
+79
+00:03:23,760 --> 00:03:30,420
+and tint I will give indeterminate tint
+
+80
+00:03:27,480 --> 00:03:32,940
+as a primary color so design default
+
+81
+00:03:30,420 --> 00:03:34,980
+color primary so that color will be same
+
+82
+00:03:32,940 --> 00:03:36,720
+so now below this I will make an image
+
+83
+00:03:34,980 --> 00:03:41,940
+view to show the image
+
+84
+00:03:36,720 --> 00:03:46,860
+so image view width will be about 256 DP
+
+85
+00:03:41,940 --> 00:03:48,540
+height will be 256 DB ID will be image
+
+86
+00:03:46,860 --> 00:03:53,099
+View
+
+87
+00:03:48,540 --> 00:03:58,260
+I'll give some margin top 40 DP and I
+
+88
+00:03:53,099 --> 00:04:00,780
+will give some color for now like black
+
+89
+00:03:58,260 --> 00:04:04,019
+we can change the color from here let's
+
+90
+00:04:00,780 --> 00:04:06,959
+say custom some gray color
+
+91
+00:04:04,019 --> 00:04:10,080
+okay and I will give the margin on this
+
+92
+00:04:06,959 --> 00:04:12,120
+relative layout about 20 DB
+
+93
+00:04:10,080 --> 00:04:13,980
+from every side so our application
+
+94
+00:04:12,120 --> 00:04:16,879
+designing is completed let's run it and
+
+95
+00:04:13,980 --> 00:04:16,879
+test it how it is looking
+
+96
+00:04:17,040 --> 00:04:20,760
+our application is looking good we have
+
+97
+00:04:19,139 --> 00:04:22,620
+to change this primary color we have to
+
+98
+00:04:20,760 --> 00:04:24,240
+remove this action bar and we have to
+
+99
+00:04:22,620 --> 00:04:25,080
+remove this visibility of this progress
+
+100
+00:04:24,240 --> 00:04:28,020
+bar
+
+101
+00:04:25,080 --> 00:04:30,240
+so first thing progress bar visibility
+
+102
+00:04:28,020 --> 00:04:34,139
+will be gone
+
+103
+00:04:30,240 --> 00:04:38,160
+and let's go to resource
+
+104
+00:04:34,139 --> 00:04:40,740
+you know values themes themes.xml let's
+
+105
+00:04:38,160 --> 00:04:43,080
+make it no action bar
+
+106
+00:04:40,740 --> 00:04:45,720
+on both of
+
+107
+00:04:43,080 --> 00:04:46,979
+no X and Bar
+
+108
+00:04:45,720 --> 00:04:49,139
+so
+
+109
+00:04:46,979 --> 00:04:51,780
+now X and bar will be removed now let's
+
+110
+00:04:49,139 --> 00:04:54,000
+change the primary color so this is our
+
+111
+00:04:51,780 --> 00:04:57,960
+primary color
+
+112
+00:04:54,000 --> 00:04:59,940
+I will change this purple 200 to
+
+113
+00:04:57,960 --> 00:05:05,160
+a red one
+
+114
+00:04:59,940 --> 00:05:08,880
+this one also 500 to 600 red one
+
+115
+00:05:05,160 --> 00:05:13,520
+and this one 700 red
+
+116
+00:05:08,880 --> 00:05:13,520
+let's run it and see how it is looking
+
+117
+00:05:14,160 --> 00:05:17,880
+so it is looking better now so we have
+
+118
+00:05:16,080 --> 00:05:20,280
+removed the action bar so now let's
+
+119
+00:05:17,880 --> 00:05:22,919
+implement the code in mainactivity.java
+
+120
+00:05:20,280 --> 00:05:25,139
+so let's go to main activity
+
+121
+00:05:22,919 --> 00:05:28,560
+here let's initialize all those views we
+
+122
+00:05:25,139 --> 00:05:29,400
+we have added text input text we can
+
+123
+00:05:28,560 --> 00:05:33,620
+give
+
+124
+00:05:29,400 --> 00:05:37,440
+material button we generate button
+
+125
+00:05:33,620 --> 00:05:39,060
+progress bar progress bar
+
+126
+00:05:37,440 --> 00:05:42,419
+image View
+
+127
+00:05:39,060 --> 00:05:45,780
+image view now provide the ID input text
+
+128
+00:05:42,419 --> 00:05:47,580
+equals to find view by IDR dot ID dot we
+
+129
+00:05:45,780 --> 00:05:50,840
+have not given the ID for edit text
+
+130
+00:05:47,580 --> 00:05:54,600
+let's go and give the ID over here
+
+131
+00:05:50,840 --> 00:05:56,460
+input text let's get back to this and
+
+132
+00:05:54,600 --> 00:05:59,100
+input text
+
+133
+00:05:56,460 --> 00:06:02,280
+generate button
+
+134
+00:05:59,100 --> 00:06:05,360
+ID dot generate button
+
+135
+00:06:02,280 --> 00:06:05,360
+progress bar
+
+136
+00:06:05,699 --> 00:06:09,660
+I read out progress
+
+137
+00:06:07,560 --> 00:06:11,460
+so we have not given the ID for Progress
+
+138
+00:06:09,660 --> 00:06:13,020
+bar also but we have given progress
+
+139
+00:06:11,460 --> 00:06:16,440
+circular
+
+140
+00:06:13,020 --> 00:06:18,000
+let's change it to progress
+
+141
+00:06:16,440 --> 00:06:20,639
+bar
+
+142
+00:06:18,000 --> 00:06:23,699
+and over here r dot ID dot progress
+
+143
+00:06:20,639 --> 00:06:26,400
+which is visible now image View
+
+144
+00:06:23,699 --> 00:06:28,319
+dot ID dot image View
+
+145
+00:06:26,400 --> 00:06:31,800
+now on click of generate button we'll
+
+146
+00:06:28,319 --> 00:06:34,620
+get the text so here generate button dot
+
+147
+00:06:31,800 --> 00:06:37,020
+set on click listener I will use the
+
+148
+00:06:34,620 --> 00:06:39,060
+Lambda expression
+
+149
+00:06:37,020 --> 00:06:40,880
+so on click of this what we will do we
+
+150
+00:06:39,060 --> 00:06:45,000
+will get the text
+
+151
+00:06:40,880 --> 00:06:46,919
+equals to input text Dot get text Dot
+
+152
+00:06:45,000 --> 00:06:48,840
+two string dot trim
+
+153
+00:06:46,919 --> 00:06:50,100
+so we'll get that text in our text
+
+154
+00:06:48,840 --> 00:06:53,460
+string
+
+155
+00:06:50,100 --> 00:06:55,800
+let's check if text Dot is empty
+
+156
+00:06:53,460 --> 00:07:01,380
+if it is empty we can set the error so
+
+157
+00:06:55,800 --> 00:07:03,419
+input text Dot set error can't be empty
+
+158
+00:07:01,380 --> 00:07:06,600
+we'll return from here if it is not
+
+159
+00:07:03,419 --> 00:07:07,860
+empty we'll call the API we'll pass the
+
+160
+00:07:06,600 --> 00:07:09,900
+text
+
+161
+00:07:07,860 --> 00:07:12,060
+we have not created this method we will
+
+162
+00:07:09,900 --> 00:07:15,539
+create this method over here called API
+
+163
+00:07:12,060 --> 00:07:17,160
+which will take the string text
+
+164
+00:07:15,539 --> 00:07:20,340
+will make it
+
+165
+00:07:17,160 --> 00:07:22,199
+avoid so here we will do the API call
+
+166
+00:07:20,340 --> 00:07:24,960
+now let's run the application and check
+
+167
+00:07:22,199 --> 00:07:27,479
+how it is working till now
+
+168
+00:07:24,960 --> 00:07:29,520
+if I write if I don't write anything and
+
+169
+00:07:27,479 --> 00:07:32,099
+click on generate it is showing error
+
+170
+00:07:29,520 --> 00:07:34,560
+that is text can't be empty if I write
+
+171
+00:07:32,099 --> 00:07:38,099
+something it will go to this call Api
+
+172
+00:07:34,560 --> 00:07:39,900
+method so our app is working now we will
+
+173
+00:07:38,099 --> 00:07:42,539
+add the library to call the API Library
+
+174
+00:07:39,900 --> 00:07:44,940
+you can use volley library or okay HTTP
+
+175
+00:07:42,539 --> 00:07:46,139
+in this video I am using Okay HTTP now
+
+176
+00:07:44,940 --> 00:07:50,400
+go to Google
+
+177
+00:07:46,139 --> 00:07:53,419
+search for Okay HTTP Android
+
+178
+00:07:50,400 --> 00:07:53,419
+go to this link
+
+179
+00:07:53,460 --> 00:07:58,919
+and you can read the documentation copy
+
+180
+00:07:56,340 --> 00:08:00,660
+this implementation line from here
+
+181
+00:07:58,919 --> 00:08:03,660
+copy this one
+
+182
+00:08:00,660 --> 00:08:05,940
+go to your project in build.gradle
+
+183
+00:08:03,660 --> 00:08:07,560
+module file
+
+184
+00:08:05,940 --> 00:08:10,080
+over here
+
+185
+00:08:07,560 --> 00:08:12,720
+paste that so we have added okay HTTP
+
+186
+00:08:10,080 --> 00:08:15,660
+Library click on sync now
+
+187
+00:08:12,720 --> 00:08:17,580
+go to main activity you can check the
+
+188
+00:08:15,660 --> 00:08:20,539
+documentation over here how to call the
+
+189
+00:08:17,580 --> 00:08:24,120
+API so I will copy these two lines first
+
+190
+00:08:20,539 --> 00:08:26,660
+we need this post to a server so I will
+
+191
+00:08:24,120 --> 00:08:26,660
+copy this
+
+192
+00:08:27,120 --> 00:08:32,640
+here we can paste it
+
+193
+00:08:29,340 --> 00:08:35,279
+and input all this
+
+194
+00:08:32,640 --> 00:08:37,200
+now we have to call the Post method so I
+
+195
+00:08:35,279 --> 00:08:40,080
+will not copy it from here I will write
+
+196
+00:08:37,200 --> 00:08:42,779
+my own so let's go to call Api method
+
+197
+00:08:40,080 --> 00:08:45,060
+and first create a request body so
+
+198
+00:08:42,779 --> 00:08:47,820
+request body will be our Json object so
+
+199
+00:08:45,060 --> 00:08:51,019
+Json object
+
+200
+00:08:47,820 --> 00:08:53,640
+Json body I will give the name
+
+201
+00:08:51,019 --> 00:08:55,680
+Json object
+
+202
+00:08:53,640 --> 00:08:58,560
+and I will put something in this Json
+
+203
+00:08:55,680 --> 00:09:01,380
+body so what to put we have to check the
+
+204
+00:08:58,560 --> 00:09:03,420
+API first so which API we are calling so
+
+205
+00:09:01,380 --> 00:09:06,000
+we have to call some API to generate the
+
+206
+00:09:03,420 --> 00:09:09,000
+image from our text so we are using open
+
+207
+00:09:06,000 --> 00:09:11,519
+AI API so so go to Google and search for
+
+208
+00:09:09,000 --> 00:09:13,920
+open AI API
+
+209
+00:09:11,519 --> 00:09:18,080
+go to this site
+
+210
+00:09:13,920 --> 00:09:18,080
+here you can see explore the API option
+
+211
+00:09:18,779 --> 00:09:22,040
+click on get started
+
+212
+00:09:23,279 --> 00:09:26,820
+if you have already created the account
+
+213
+00:09:24,959 --> 00:09:28,380
+you can log in or if you have not
+
+214
+00:09:26,820 --> 00:09:30,300
+created the account you can create your
+
+215
+00:09:28,380 --> 00:09:32,480
+account I have already created so I will
+
+216
+00:09:30,300 --> 00:09:32,480
+login
+
+217
+00:09:36,480 --> 00:09:40,620
+so from here you can go to API reference
+
+218
+00:09:39,000 --> 00:09:43,260
+over here
+
+219
+00:09:40,620 --> 00:09:46,320
+click on images over here
+
+220
+00:09:43,260 --> 00:09:48,420
+you can see this URL so we need this URL
+
+221
+00:09:46,320 --> 00:09:51,899
+and this request body so in request body
+
+222
+00:09:48,420 --> 00:09:54,480
+we need prompt and size response format
+
+223
+00:09:51,899 --> 00:09:57,779
+and user so here we will be using prompt
+
+224
+00:09:54,480 --> 00:10:00,420
+and size so let's go to our project here
+
+225
+00:09:57,779 --> 00:10:03,120
+Json body dot put
+
+226
+00:10:00,420 --> 00:10:04,560
+we will add prompt The Prompt will be
+
+227
+00:10:03,120 --> 00:10:06,959
+our text
+
+228
+00:10:04,560 --> 00:10:09,800
+Json body dot put
+
+229
+00:10:06,959 --> 00:10:13,080
+we'll add size size will be
+
+230
+00:10:09,800 --> 00:10:15,060
+256 x 256.
+
+231
+00:10:13,080 --> 00:10:18,839
+so here it will give error because you
+
+232
+00:10:15,060 --> 00:10:20,640
+have to add it inside try catch so try
+
+233
+00:10:18,839 --> 00:10:22,519
+put it inside try
+
+234
+00:10:20,640 --> 00:10:25,440
+catch
+
+235
+00:10:22,519 --> 00:10:28,260
+exception e will print the exception
+
+236
+00:10:25,440 --> 00:10:30,480
+that's it so we have defined the Json
+
+237
+00:10:28,260 --> 00:10:33,300
+body from this we will make the request
+
+238
+00:10:30,480 --> 00:10:35,580
+body so request body
+
+239
+00:10:33,300 --> 00:10:38,760
+request body equals to
+
+240
+00:10:35,580 --> 00:10:42,380
+request body dot create Json body dot
+
+241
+00:10:38,760 --> 00:10:46,260
+two string second thing you need is
+
+242
+00:10:42,380 --> 00:10:49,320
+this media type that is our Json so just
+
+243
+00:10:46,260 --> 00:10:52,079
+pass that Json over here
+
+244
+00:10:49,320 --> 00:10:54,120
+that's it we have now request body now
+
+245
+00:10:52,079 --> 00:10:57,000
+from this we have to make a request so
+
+246
+00:10:54,120 --> 00:10:59,220
+that we can call the API so request
+
+247
+00:10:57,000 --> 00:11:01,680
+request equals to
+
+248
+00:10:59,220 --> 00:11:04,560
+new request we will make a builder
+
+249
+00:11:01,680 --> 00:11:07,500
+pattern Builder
+
+250
+00:11:04,560 --> 00:11:08,640
+dot URL what is the URL you can go to
+
+251
+00:11:07,500 --> 00:11:11,339
+open AI
+
+252
+00:11:08,640 --> 00:11:13,760
+and copy the URL from here this is the
+
+253
+00:11:11,339 --> 00:11:13,760
+URL
+
+254
+00:11:16,320 --> 00:11:21,000
+dot we need header also I will put
+
+255
+00:11:19,260 --> 00:11:26,420
+header just now
+
+256
+00:11:21,000 --> 00:11:26,420
+we need post as body request body
+
+257
+00:11:26,880 --> 00:11:32,040
+and we will build so we need header what
+
+258
+00:11:29,880 --> 00:11:34,500
+is the header header is the API key that
+
+259
+00:11:32,040 --> 00:11:36,779
+is provided by the open AI so to
+
+260
+00:11:34,500 --> 00:11:38,040
+generate the API key you have to go over
+
+261
+00:11:36,779 --> 00:11:42,000
+here
+
+262
+00:11:38,040 --> 00:11:44,820
+you can see view API Keys click on that
+
+263
+00:11:42,000 --> 00:11:46,740
+and here create a new secret key so
+
+264
+00:11:44,820 --> 00:11:48,839
+click on that
+
+265
+00:11:46,740 --> 00:11:51,180
+copy this API key because once you close
+
+266
+00:11:48,839 --> 00:11:53,459
+this you will not get again so I have
+
+267
+00:11:51,180 --> 00:11:58,200
+copied it go back to the project in
+
+268
+00:11:53,459 --> 00:12:01,320
+header and write as authorization and
+
+269
+00:11:58,200 --> 00:12:04,320
+second parameter value will be
+
+270
+00:12:01,320 --> 00:12:04,320
+Bearer
+
+271
+00:12:04,620 --> 00:12:11,220
+space paste that so we have to write b
+
+272
+00:12:07,920 --> 00:12:13,920
+error one space and the API key that's
+
+273
+00:12:11,220 --> 00:12:15,959
+it we have also added the header now we
+
+274
+00:12:13,920 --> 00:12:20,940
+just have to call the API so to call the
+
+275
+00:12:15,959 --> 00:12:24,420
+API we have client dot new call we have
+
+276
+00:12:20,940 --> 00:12:27,300
+to pass the request dot in queue so that
+
+277
+00:12:24,420 --> 00:12:29,279
+we will get the Callback new callback
+
+278
+00:12:27,300 --> 00:12:31,320
+click on enter
+
+279
+00:12:29,279 --> 00:12:33,420
+so we have two method over here on
+
+280
+00:12:31,320 --> 00:12:35,459
+failure and on response on failure we
+
+281
+00:12:33,420 --> 00:12:37,140
+will just show the message toast dot
+
+282
+00:12:35,459 --> 00:12:38,839
+make text
+
+283
+00:12:37,140 --> 00:12:41,579
+we will say
+
+284
+00:12:38,839 --> 00:12:43,139
+failed to generate
+
+285
+00:12:41,579 --> 00:12:47,940
+image
+
+286
+00:12:43,139 --> 00:12:50,519
+length will be long dot show
+
+287
+00:12:47,940 --> 00:12:52,680
+that's it on failure we have to just
+
+288
+00:12:50,519 --> 00:12:55,800
+show the message so if we got the
+
+289
+00:12:52,680 --> 00:12:58,279
+response what we will do is let's log
+
+290
+00:12:55,800 --> 00:13:02,579
+the refs once so log
+
+291
+00:12:58,279 --> 00:13:07,860
+dot i response
+
+292
+00:13:02,579 --> 00:13:10,320
+it will be response dot body dot string
+
+293
+00:13:07,860 --> 00:13:11,820
+so let's see what response comes so we
+
+294
+00:13:10,320 --> 00:13:13,620
+have written the call Api method where
+
+295
+00:13:11,820 --> 00:13:15,779
+we have added URL and the header
+
+296
+00:13:13,620 --> 00:13:17,579
+correctly now we are calling the API
+
+297
+00:13:15,779 --> 00:13:20,660
+Let's test what we will get as a
+
+298
+00:13:17,579 --> 00:13:20,660
+response so run it
+
+299
+00:13:21,600 --> 00:13:26,760
+I will open the logcat
+
+300
+00:13:23,820 --> 00:13:29,720
+and let's write test
+
+301
+00:13:26,760 --> 00:13:29,720
+click on generate
+
+302
+00:13:30,959 --> 00:13:36,540
+so as you can see we have some response
+
+303
+00:13:33,300 --> 00:13:38,940
+that is response we have the Json object
+
+304
+00:13:36,540 --> 00:13:41,700
+where we have one is created one is data
+
+305
+00:13:38,940 --> 00:13:44,880
+and inside data we have Json array where
+
+306
+00:13:41,700 --> 00:13:47,459
+we have URL let's copy this URL and open
+
+307
+00:13:44,880 --> 00:13:49,680
+in browser
+
+308
+00:13:47,459 --> 00:13:52,260
+so as you can see we have test image so
+
+309
+00:13:49,680 --> 00:13:54,899
+our image is being generated now let's
+
+310
+00:13:52,260 --> 00:13:58,079
+get this URL from this Json object and
+
+311
+00:13:54,899 --> 00:14:01,139
+put it in an image view so for that
+
+312
+00:13:58,079 --> 00:14:04,940
+what I will do first is I will convert
+
+313
+00:14:01,139 --> 00:14:04,940
+this body to a Json object
+
+314
+00:14:05,100 --> 00:14:11,820
+Json object equals to new Json object
+
+315
+00:14:08,180 --> 00:14:14,720
+response dot body dot string I have to
+
+316
+00:14:11,820 --> 00:14:16,260
+put it in try catch
+
+317
+00:14:14,720 --> 00:14:19,740
+so
+
+318
+00:14:16,260 --> 00:14:21,959
+in catch exception e
+
+319
+00:14:19,740 --> 00:14:24,480
+e dot print
+
+320
+00:14:21,959 --> 00:14:27,540
+so once I get the Json object what I
+
+321
+00:14:24,480 --> 00:14:30,120
+will do I will put it in image URL so
+
+322
+00:14:27,540 --> 00:14:33,240
+image URL equals to from Json object
+
+323
+00:14:30,120 --> 00:14:35,040
+first I will get Json array since we
+
+324
+00:14:33,240 --> 00:14:36,360
+have the Json array of object that is
+
+325
+00:14:35,040 --> 00:14:38,940
+data
+
+326
+00:14:36,360 --> 00:14:41,820
+and inside that Json array we can see in
+
+327
+00:14:38,940 --> 00:14:44,579
+lock cat we have first element that is
+
+328
+00:14:41,820 --> 00:14:48,660
+this object so this is the Json object
+
+329
+00:14:44,579 --> 00:14:51,839
+inside data so dot get Json object index
+
+330
+00:14:48,660 --> 00:14:54,720
+will be 0 first element and we will get
+
+331
+00:14:51,839 --> 00:14:57,480
+this string so get string
+
+332
+00:14:54,720 --> 00:14:59,760
+the name is URL
+
+333
+00:14:57,480 --> 00:15:02,100
+in this way we will get this image URL
+
+334
+00:14:59,760 --> 00:15:04,320
+inside this image URL string now we have
+
+335
+00:15:02,100 --> 00:15:07,680
+to load this image URL in our image view
+
+336
+00:15:04,320 --> 00:15:10,500
+that's it so we will write load image
+
+337
+00:15:07,680 --> 00:15:13,260
+image URL so you have to create the
+
+338
+00:15:10,500 --> 00:15:17,339
+method for loading the image so avoid
+
+339
+00:15:13,260 --> 00:15:19,860
+load image it will take the URL
+
+340
+00:15:17,339 --> 00:15:22,139
+load image so here we will load the
+
+341
+00:15:19,860 --> 00:15:24,899
+image so loading the image from URL to
+
+342
+00:15:22,139 --> 00:15:27,060
+the image view we need some Library so
+
+343
+00:15:24,899 --> 00:15:28,680
+we have Glide Library we have Picasso
+
+344
+00:15:27,060 --> 00:15:32,519
+Library I will use the Picasso Library
+
+345
+00:15:28,680 --> 00:15:35,040
+go to Google search for Picasso Library
+
+346
+00:15:32,519 --> 00:15:38,160
+Android
+
+347
+00:15:35,040 --> 00:15:41,940
+go to this website and you can copy the
+
+348
+00:15:38,160 --> 00:15:44,279
+dependency so from here copy this
+
+349
+00:15:41,940 --> 00:15:46,199
+go to build at Gradle
+
+350
+00:15:44,279 --> 00:15:47,940
+paste it over here
+
+351
+00:15:46,199 --> 00:15:50,040
+click on sync now
+
+352
+00:15:47,940 --> 00:15:52,560
+now we can use this Library
+
+353
+00:15:50,040 --> 00:15:55,079
+to load the image we will use because so
+
+354
+00:15:52,560 --> 00:15:58,019
+dot get
+
+355
+00:15:55,079 --> 00:16:01,260
+so we have Picasso dot get Dot
+
+356
+00:15:58,019 --> 00:16:05,160
+load URL
+
+357
+00:16:01,260 --> 00:16:07,740
+into Target will be our image View
+
+358
+00:16:05,160 --> 00:16:09,720
+that's it it will load the URL to our
+
+359
+00:16:07,740 --> 00:16:12,000
+image view now this load image method we
+
+360
+00:16:09,720 --> 00:16:15,899
+are calling from callback function so we
+
+361
+00:16:12,000 --> 00:16:16,980
+have to do it in UI thread so run on UI
+
+362
+00:16:15,899 --> 00:16:19,440
+thread
+
+363
+00:16:16,980 --> 00:16:22,079
+we need one method
+
+364
+00:16:19,440 --> 00:16:24,360
+we will use Lambda
+
+365
+00:16:22,079 --> 00:16:26,399
+so inside this run on UI thread I will
+
+366
+00:16:24,360 --> 00:16:28,800
+cut this and paste it so once we call
+
+367
+00:16:26,399 --> 00:16:31,199
+from this callback method we will run an
+
+368
+00:16:28,800 --> 00:16:33,980
+UI thread so let's run it and test it it
+
+369
+00:16:31,199 --> 00:16:33,980
+is working or not
+
+370
+00:16:34,019 --> 00:16:40,800
+so first we will write test generate
+
+371
+00:16:38,759 --> 00:16:43,500
+so as you can see the image is generated
+
+372
+00:16:40,800 --> 00:16:47,040
+and test written over here
+
+373
+00:16:43,500 --> 00:16:48,779
+in this way I can write cat with the
+
+374
+00:16:47,040 --> 00:16:52,339
+laptop
+
+375
+00:16:48,779 --> 00:16:52,339
+let's click on generate
+
+376
+00:16:54,180 --> 00:16:57,899
+so image is generated so as you can see
+
+377
+00:16:56,279 --> 00:16:59,759
+when I click on generate button it is
+
+378
+00:16:57,899 --> 00:17:02,100
+taking some time to call the API and
+
+379
+00:16:59,759 --> 00:17:04,620
+load the image so I will use that
+
+380
+00:17:02,100 --> 00:17:06,299
+progress bar to show the progress so we
+
+381
+00:17:04,620 --> 00:17:08,400
+have this progress bar over here but
+
+382
+00:17:06,299 --> 00:17:10,740
+when we call the API progress bar should
+
+383
+00:17:08,400 --> 00:17:13,199
+be visible and when we get the response
+
+384
+00:17:10,740 --> 00:17:14,640
+it should be invisible so let's make a
+
+385
+00:17:13,199 --> 00:17:17,760
+method for that
+
+386
+00:17:14,640 --> 00:17:22,199
+void set in progress
+
+387
+00:17:17,760 --> 00:17:25,199
+we'll take a Boolean value in progress
+
+388
+00:17:22,199 --> 00:17:27,480
+so if in progress we can make a progress
+
+389
+00:17:25,199 --> 00:17:29,460
+bar dot set visibility visible
+
+390
+00:17:27,480 --> 00:17:31,320
+and generate button we will set it as
+
+391
+00:17:29,460 --> 00:17:33,540
+gone
+
+392
+00:17:31,320 --> 00:17:35,640
+same way if it is not in progress we
+
+393
+00:17:33,540 --> 00:17:38,220
+will do opposite of it
+
+394
+00:17:35,640 --> 00:17:40,679
+progress bar will be gone
+
+395
+00:17:38,220 --> 00:17:43,140
+generate button will be visible
+
+396
+00:17:40,679 --> 00:17:45,900
+so when we call the API we should make
+
+397
+00:17:43,140 --> 00:17:47,640
+it visible so set in progress will be
+
+398
+00:17:45,900 --> 00:17:50,520
+true
+
+399
+00:17:47,640 --> 00:17:54,000
+and when we get the response it will be
+
+400
+00:17:50,520 --> 00:17:55,620
+set in progress will be false so in the
+
+401
+00:17:54,000 --> 00:17:57,900
+same way we are calling it from callback
+
+402
+00:17:55,620 --> 00:18:00,200
+method so we have to put it on run on UI
+
+403
+00:17:57,900 --> 00:18:00,200
+thread
+
+404
+00:18:00,840 --> 00:18:05,760
+I will cut this out and paste it over
+
+405
+00:18:03,600 --> 00:18:08,900
+here so our progress bar should also be
+
+406
+00:18:05,760 --> 00:18:08,900
+visible let's run it
+
+407
+00:18:09,299 --> 00:18:15,480
+let's generate some tiger
+
+408
+00:18:11,660 --> 00:18:18,480
+eating grass with
+
+409
+00:18:15,480 --> 00:18:20,460
+phone on hand
+
+410
+00:18:18,480 --> 00:18:22,320
+click on generate progress bar is
+
+411
+00:18:20,460 --> 00:18:24,539
+visible
+
+412
+00:18:22,320 --> 00:18:26,940
+now you can say tiger is eating grass
+
+413
+00:18:24,539 --> 00:18:29,700
+and we have phone on hand so in this way
+
+414
+00:18:26,940 --> 00:18:31,320
+you can generate anything from here so
+
+415
+00:18:29,700 --> 00:18:32,780
+let's write something
+
+416
+00:18:31,320 --> 00:18:40,440
+hers
+
+417
+00:18:32,780 --> 00:18:43,580
+watching movie in Moon with rabbit
+
+418
+00:18:40,440 --> 00:18:43,580
+let's generate it
+
+419
+00:18:44,520 --> 00:18:49,260
+so in this way you can make your app
+
+420
+00:18:46,380 --> 00:18:51,240
+which will generate any image for you
+
+421
+00:18:49,260 --> 00:18:53,520
+in this way you can generate any image
+
+422
+00:18:51,240 --> 00:18:56,400
+from your application we are using open
+
+423
+00:18:53,520 --> 00:18:58,260
+AI API so you can check usage over here
+
+424
+00:18:56,400 --> 00:19:01,200
+from billing
+
+425
+00:18:58,260 --> 00:19:03,840
+or from usage you can check your usage
+
+426
+00:19:01,200 --> 00:19:07,080
+we have 18 as free credit I have used
+
+427
+00:19:03,840 --> 00:19:08,820
+only 0.83 so if you enjoyed this video
+
+428
+00:19:07,080 --> 00:19:10,440
+please hit the like button if you have
+
+429
+00:19:08,820 --> 00:19:12,419
+any doubts and queries please comment
+
+430
+00:19:10,440 --> 00:19:14,160
+below I will reply for you don't forget
+
+431
+00:19:12,419 --> 00:19:17,690
+to hit the Subscribe button before going
+
+432
+00:19:14,160 --> 00:19:38,730
+see you in the next video bye bye
+
+433
+00:19:17,690 --> 00:19:38,730
+[Music]
