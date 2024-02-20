@@ -7,21 +7,18 @@ from itertools import starmap
 import multiprocessing
 
 import pysrt
-import imageio
-import youtube_dl
 import chardet
 import nltk
-
-# imageio.plugins.ffmpeg.download()
-nltk.download('punkt')
-
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 from sumy.summarizers.lsa import LsaSummarizer
+from pytube import YouTube
+from youtube_transcript_api import YouTubeTranscriptApi
 
+nltk.download('punkt')
 
 def summarize(srt_file, n_sentences, language="english"):
     parser = PlaintextParser.from_string(
@@ -36,7 +33,6 @@ def summarize(srt_file, n_sentences, language="english"):
         segment.append(srt_segment_to_range(item))
     return segment
 
-
 def srt_to_txt(srt_file):
     text = ''
     for index, item in enumerate(srt_file):
@@ -48,7 +44,6 @@ def srt_to_txt(srt_file):
         text += ". "
     return text
 
-
 def srt_segment_to_range(item):
     start_segment = item.start.hours * 60 * 60 + item.start.minutes * \
         60 + item.start.seconds + item.start.milliseconds / 1000.0
@@ -56,17 +51,13 @@ def srt_segment_to_range(item):
         60 + item.end.seconds + item.end.milliseconds / 1000.0
     return start_segment, end_segment
 
-
 def time_regions(regions):
     return sum(starmap(lambda start, end: end - start, regions))
 
-
 def find_summary_regions(srt_filename, duration=30, language="english"):
-    srt_file = pysrt.open(srt_filename)
-
     enc = chardet.detect(open(srt_filename, "rb").read())['encoding']
     srt_file = pysrt.open(srt_filename, encoding=enc)
-
+    
     subtitle_duration = time_regions(
         map(srt_segment_to_range, srt_file)) / len(srt_file)
     n_sentences = duration / subtitle_duration
@@ -85,7 +76,6 @@ def find_summary_regions(srt_filename, duration=30, language="english"):
             total_time = time_regions(summary)
     return summary
 
-
 def create_summary(filename, regions, target_duration):
     subclips = []
     input_video = VideoFileClip(filename)
@@ -100,7 +90,6 @@ def create_summary(filename, regions, target_duration):
     summary = summary.resize(width=int(input_video.size[0]/2), height=int(input_video.size[1]/2))
     
     return summary
-
 
 def get_summary(filename="1.mp4", subtitles="1.srt", original_video_duration=None):
     if original_video_duration is None:
@@ -121,28 +110,61 @@ def get_summary(filename="1.mp4", subtitles="1.srt", original_video_duration=Non
     )
     return True
 
+def download_video(url, filename="1.mp4"):
+    try:
+        # Create a YouTube object
+        yt = YouTube(url)
 
-def download_video_srt(subs):
-    ydl_opts = {
-        'format': 'best',
-        'outtmpl': '1.%(ext)s',
-        'subtitlesformat': 'srt',
-        'writeautomaticsub': True,
-    }
+        # Get the highest resolution stream
+        video_stream = yt.streams.get_highest_resolution()
 
-    movie_filename = ""
-    subtitle_filename = ""
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        result = ydl.extract_info("{}".format(url), download=True)
-        movie_filename = ydl.prepare_filename(result)
-        subtitle_info = result.get("requested_subtitles")
-        subtitle_language = subtitle_info.keys()[0]
-        subtitle_ext = subtitle_info.get(subtitle_language).get("ext")
-        subtitle_filename = movie_filename.replace(".mp4", ".%s.%s" %
-                                                   (subtitle_language,
-                                                    subtitle_ext))
-    return movie_filename, subtitle_filename
+        # Download the video to the current directory with the specified filename
+        video_stream.download(filename=filename)
 
+        print(f"Download successful! Saved as {filename}")
+        return filename
+    except Exception as e:
+        print(f"Error: {e}")
+
+def get_video_id(url):
+    try:
+        # Extract video ID from the URL
+        yt = YouTube(url)
+        video_id = yt.video_id
+        return video_id
+    except Exception as e:
+        print(f"Error extracting video ID: {e}")
+        return None
+
+def download_cc_as_srt(video_url, output_filename="1.srt"):
+    # Get the video ID from the URL
+    video_id = get_video_id(video_url)
+
+    if video_id:
+        # Get the transcript for the YouTube video
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+
+        if transcript:
+            # Write the transcript to an SRT file
+            with open(output_filename, 'w', encoding='utf-8') as srt_file:
+                for i, entry in enumerate(transcript, start=1):
+                    start_time = entry['start']
+                    end_time = start_time + entry['duration']
+                    text = entry['text']
+                    
+                    srt_file.write(f"{i}\n{format_time(start_time)} --> {format_time(end_time)}\n{text}\n\n")
+
+            print(f"SRT file generated successfully: {output_filename}")
+        else:
+            print("No transcript available for this video.")
+    else:
+        print("Failed to extract video ID.")
+    return output_filename
+
+def format_time(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d},000"
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("Watch videos quickly")
@@ -158,12 +180,13 @@ if __name__ == '__main__':
     keep_original_file = args.keep_original_file
 
     if not url:
-        # proceed with general summarization
+        # Proceed with general summarization
         get_summary(args.video_file, args.subtitles_file)
 
     else:
-        # download video with subtitles
-        movie_filename, subtitle_filename = download_video_srt(url)
+        # Download video with subtitles
+        movie_filename = download_video(url)
+        subtitle_filename = download_cc_as_srt(url)
         summary_retrieval_process = multiprocessing.Process(target=get_summary,
                                                             args=(movie_filename, subtitle_filename))  # Remove target_duration argument
         summary_retrieval_process.start()
