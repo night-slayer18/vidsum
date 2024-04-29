@@ -43,7 +43,7 @@ class MyHandler(FileSystemEventHandler):
             
             srt_file_name = f"{video_file_name}.srt"
 
-            subprocess.run(['python', 'sum.py', '-i', event.src_path, '-s', srt_file_name])
+            subprocess.run(['python', 'sum.py', '-i', event.src_path, '-s', srt_file_name,'-st',"00:00:00",'-et',"00:05:00"])
 
 def start_watcher(folder_path):
     event_handler = MyHandler()
